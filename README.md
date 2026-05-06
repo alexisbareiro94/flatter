@@ -63,8 +63,6 @@ Al pasar la carpeta `Google Fotos`, el programa busca **recursivamente** en toda
 
 Copiar de múltiples carpetas:
 
-Copiar de múltiples carpetas:
-
 ```bash
 go run main.go /home/user/fotos copy /home/user/descargas /home/user/imágenes
 ```

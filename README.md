@@ -11,7 +11,7 @@ go build -o flatter .
 ## Uso
 
 ```bash
-go run main.go <destino> <modo> <carpeta1> [carpeta2] ...
+go run main.go <destino> <modo> <carpeta_raiz> o <capeta1> <carpeta2...
 ```
 
 ### Argumentos

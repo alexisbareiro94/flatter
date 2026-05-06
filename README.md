@@ -28,6 +28,7 @@ go run main.go <destino> <modo> <carpeta_raiz> o <capeta1> <carpeta2...
 |------|-------------|-------------------|
 | `-w` | Número de workers concurrentes | 8 |
 | `-n` | Ignorar capturas de pantalla | false |
+| `-i` | Formatos a ignorar (separados por coma, ej: webp,jpg) | (ninguno) |
 
 ## Ejemplos
 
@@ -85,6 +86,11 @@ Omitir archivos que ya existen en el destino:
 go run main.go /home/user/fotos skip /home/user/descargas
 ```
 
+Omitir ciertos formatos de imagen:
+
+```bash
+go run main.go -i webp,jpg /home/user/fotos skip /home/user/descargas
+```
 ## Modos
 
 - **`copy`**: Si el archivo ya existe, lo renombra agregando un número al final (ej: `imagen_1.jpg`)

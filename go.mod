@@ -1,3 +1,3 @@
-module imagecopier
+module flatter
 
 go 1.21

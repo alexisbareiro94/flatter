@@ -11,18 +11,18 @@ go build -o flatter .
 ## Uso
 
 ```bash
-./flatter [flags] <destino> <modo> <carpeta1> [<carpeta2>...]
+./flatter [flags] <carpeta1> [<carpeta2>...] <modo> <destino>
 # o sin compilar:
-# go run main.go [flags] <destino> <modo> <carpeta1> [<carpeta2>...]
+# go run main.go [flags] <carpeta1> [<carpeta2>...] <modo> <destino>
 ```
 
 ### Argumentos
 
 | Argumento | Descripción |
 |-----------|-------------|
-| `destino` | Ruta de la carpeta destino |
-| `modo` | Modo de copia: `copy` (renombra si existe) o `skip` (omite si existe) |
 | `carpeta1`... | Carpeta/s fuente a escanear |
+| `modo` | Modo de copia: `copy` (renombra si existe) o `skip` (omite si existe) |
+| `destino` | Ruta de la carpeta destino |
 
 ### Flags
 
@@ -38,10 +38,10 @@ go build -o flatter .
 Copiar todas las imágenes de una carpeta (incluyendo subcarpetas):
 
 ```bash
-./flatter /home/user/fotos copy /run/media/alexis/6BBD-E38E/Google\ Fotos
+./flatter /run/media/alexis/6BBD-E38E/Google\ Fotos copy /home/user/fotos
 ```
 ```bash
-./flatter /home/user/fotos copy "/run/media/alexis/6BBD-E38E/Google Fotos"
+./flatter "/run/media/alexis/6BBD-E38E/Google Fotos" copy /home/user/fotos
 #el uso de comillas es necesario cuando se pasa la ruta de una carpeta con espacios o usar el caracter \ para escapar los espacios.
 ```
 Ejemplo de estructura en un dispositivo extraible:
@@ -71,37 +71,37 @@ Al pasar la carpeta `Google Fotos`, el programa busca **recursivamente** en toda
 Copiar de múltiples carpetas:
 
 ```bash
-./flatter /home/user/fotos copy /home/user/descargas /home/user/imágenes
+./flatter /home/user/descargas /home/user/imágenes copy /home/user/fotos
 ```
 
 Ignorar capturas de pantalla:
 
 ```bash
-./flatter -n /home/user/fotos copy /home/user/descargas
+./flatter -n /home/user/descargas copy /home/user/fotos
 ```
 
 Usar 16 workers para mayor velocidad:
 
 ```bash
-./flatter -w 16 /home/user/fotos copy /home/user/descargas
+./flatter -w 16 /home/user/descargas copy /home/user/fotos
 ```
 
 Omitir archivos que ya existen en el destino:
 
 ```bash
-./flatter /home/user/fotos skip /home/user/descargas
+./flatter /home/user/descargas skip /home/user/fotos
 ```
 
 Omitir ciertos formatos de imagen:
 
 ```bash
-./flatter -i webp,jpg /home/user/fotos skip /home/user/descargas
+./flatter -i webp,jpg /home/user/descargas skip /home/user/fotos
 ```
 
 Admitir formatos adicionales (ej. videos o documentos):
 
 ```bash
-./flatter -a mp4,pdf /home/user/fotos copy /home/user/descargas
+./flatter -a mp4,pdf /home/user/descargas copy /home/user/fotos
 ```
 
 ## Modos

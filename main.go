@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"imagecopier/internal/copier"
-	"imagecopier/internal/scanner"
-	"imagecopier/internal/utils"
+	"flatter/internal/copier"
+	"flatter/internal/scanner"
+	"flatter/internal/utils"
 )
 
 var workers = flag.Int("w", 8, "Number of concurrent workers")

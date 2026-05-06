@@ -8,8 +8,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"imagecopier/internal/progress"
-	"imagecopier/internal/utils"
+	"flatter/internal/progress"
+	"flatter/internal/utils"
 )
 
 type Copier struct {

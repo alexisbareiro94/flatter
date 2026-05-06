@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"sync"
 
-	"imagecopier/internal/utils"
+	"flatter/internal/utils"
 )
 
 type Scanner struct{}

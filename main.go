@@ -42,14 +42,14 @@ func main() {
 
 	args := flag.Args()
 	if len(args) < 3 {
-		fmt.Fprintf(os.Stderr, "Usage: %s [-w N] [-n] [-i ext1,ext2] [-a ext1,ext2] <destino> <modo> <carpeta1> [carpeta2] ...\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "Usage: %s [-w N] [-n] [-i ext1,ext2] [-a ext1,ext2] <carpeta1> [carpeta2] ... <modo> <destino>\n", os.Args[0])
 		fmt.Fprintf(os.Stderr, "Modo: copy | skip\n")
 		os.Exit(1)
 	}
 
-	destDir := args[0]
-	mode := args[1]
-	sourceDirs := args[2:]
+	sourceDirs := args[:len(args)-2]
+	mode := args[len(args)-2]
+	destDir := args[len(args)-1]
 
 	if mode != "copy" && mode != "skip" {
 		fmt.Fprintf(os.Stderr, "Error: modo debe ser 'copy' o 'skip'\n")

@@ -26,8 +26,8 @@ go run main.go <destino> <modo> <carpeta_raiz> o <capeta1> <carpeta2...
 
 | Flag | Descripción | Valor por defecto |
 |------|-------------|-------------------|
-| `-workers` | Número de workers concurrentes | 8 |
-| `-nsc` | Ignorar capturas de pantalla | false |
+| `-w` | Número de workers concurrentes | 8 |
+| `-n` | Ignorar capturas de pantalla | false |
 
 ## Ejemplos
 
@@ -70,13 +70,13 @@ go run main.go /home/user/fotos copy /home/user/descargas /home/user/imágenes
 Ignorar capturas de pantalla:
 
 ```bash
-go run main.go -nsc /home/user/fotos copy /home/user/descargas
+go run main.go -n /home/user/fotos copy /home/user/descargas
 ```
 
 Usar 16 workers para mayor velocidad:
 
 ```bash
-go run main.go -workers 16 /home/user/fotos copy /home/user/descargas
+go run main.go -w 16 /home/user/fotos copy /home/user/descargas
 ```
 
 Omitir archivos que ya existen en el destino:
@@ -96,5 +96,5 @@ El programa busca archivos con extensión: `.jpg`, `.jpeg`, `.png`, `.webp`, `.g
 
 ## Capturas de pantalla
 
-Por defecto, el programa incluye capturas de pantalla. Usa el flag `-nsc` para ignorarlas. El programa detecta capturas de pantalla buscando patrones como:
+Por defecto, el programa incluye capturas de pantalla. Usa el flag `-n` para ignorarlas. El programa detecta capturas de pantalla buscando patrones como:
 - screenshots, screenshot, captura_de_pantalla, captura, screen shot, screen capture

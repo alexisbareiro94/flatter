@@ -11,8 +11,8 @@ import (
 	"imagecopier/internal/utils"
 )
 
-var workers = flag.Int("workers", 8, "Number of concurrent workers")
-var noScreenshots = flag.Bool("nsc", false, "Skip screenshot images")
+var workers = flag.Int("w", 8, "Number of concurrent workers")
+var noScreenshots = flag.Bool("n", false, "Skip screenshot images")
 
 func main() {
 	flag.Parse()
@@ -23,7 +23,7 @@ func main() {
 
 	args := flag.Args()
 	if len(args) < 3 {
-		fmt.Fprintf(os.Stderr, "Usage: %s [-workers N] [-nsc] <destino> <modo> <carpeta1> [carpeta2] ...\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "Usage: %s [-w N] [-n] <destino> <modo> <carpeta1> [carpeta2] ...\n", os.Args[0])
 		fmt.Fprintf(os.Stderr, "Modo: copy | skip\n")
 		os.Exit(1)
 	}

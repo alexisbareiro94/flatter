@@ -11,7 +11,9 @@ go build -o flatter .
 ## Uso
 
 ```bash
-go run main.go <destino> <modo> <carpeta_raiz> o <capeta1> <carpeta2...
+./flatter [flags] <destino> <modo> <carpeta1> [<carpeta2>...]
+# o sin compilar:
+# go run main.go [flags] <destino> <modo> <carpeta1> [<carpeta2>...]
 ```
 
 ### Argumentos
@@ -20,7 +22,7 @@ go run main.go <destino> <modo> <carpeta_raiz> o <capeta1> <carpeta2...
 |-----------|-------------|
 | `destino` | Ruta de la carpeta destino |
 | `modo` | Modo de copia: `copy` (renombra si existe) o `skip` (omite si existe) |
-| `carpeta1`... | Carpetas fuente a escanear |
+| `carpeta1`... | Carpeta/s fuente a escanear |
 
 ### Flags
 
@@ -29,15 +31,19 @@ go run main.go <destino> <modo> <carpeta_raiz> o <capeta1> <carpeta2...
 | `-w` | Número de workers concurrentes | 8 |
 | `-n` | Ignorar capturas de pantalla | false |
 | `-i` | Formatos a ignorar (separados por coma, ej: webp,jpg) | (ninguno) |
+| `-a` | Formatos adicionales a incluir (separados por coma, ej: mp4,pdf) | (ninguno) |
 
 ## Ejemplos
 
 Copiar todas las imágenes de una carpeta (incluyendo subcarpetas):
 
 ```bash
-go run main.go /home/user/fotos copy /run/media/alexis/6BBD-E38E/Google\ Fotos
+./flatter /home/user/fotos copy /run/media/alexis/6BBD-E38E/Google\ Fotos
 ```
-
+```bash
+./flatter /home/user/fotos copy "/run/media/alexis/6BBD-E38E/Google Fotos"
+#el uso de comillas es necesario cuando se pasa la ruta de una carpeta con espacios o usar el caracter \ para escapar los espacios.
+```
 Ejemplo de estructura en un dispositivo extraible:
 
 ```
@@ -45,14 +51,14 @@ run/media/alexis/6BBD-E38E/Google Fotos/
 ├── 2020/
 │   ├── enero/
 │   │   ├── foto1.jpg
-│   │   ├── video.mp4        (ignorado)
+│   │   ├── video.mp4        (ignorado) #en caso de usar -a mp4, no será ignorado.
 │   │   └── captura.png
 │   └── febrero/
 │       └── imagen.webp
 ├── 2021/
 │   ├── screenshots/
 │   │   └── screenshot_001.png
-│   └──wallpapers/
+│   └── wallpapers/
 │       ├── fondo.jpg
 │       └── logo.gif
 └── 2022/
@@ -65,32 +71,39 @@ Al pasar la carpeta `Google Fotos`, el programa busca **recursivamente** en toda
 Copiar de múltiples carpetas:
 
 ```bash
-go run main.go /home/user/fotos copy /home/user/descargas /home/user/imágenes
+./flatter /home/user/fotos copy /home/user/descargas /home/user/imágenes
 ```
 
 Ignorar capturas de pantalla:
 
 ```bash
-go run main.go -n /home/user/fotos copy /home/user/descargas
+./flatter -n /home/user/fotos copy /home/user/descargas
 ```
 
 Usar 16 workers para mayor velocidad:
 
 ```bash
-go run main.go -w 16 /home/user/fotos copy /home/user/descargas
+./flatter -w 16 /home/user/fotos copy /home/user/descargas
 ```
 
 Omitir archivos que ya existen en el destino:
 
 ```bash
-go run main.go /home/user/fotos skip /home/user/descargas
+./flatter /home/user/fotos skip /home/user/descargas
 ```
 
 Omitir ciertos formatos de imagen:
 
 ```bash
-go run main.go -i webp,jpg /home/user/fotos skip /home/user/descargas
+./flatter -i webp,jpg /home/user/fotos skip /home/user/descargas
 ```
+
+Admitir formatos adicionales (ej. videos o documentos):
+
+```bash
+./flatter -a mp4,pdf /home/user/fotos copy /home/user/descargas
+```
+
 ## Modos
 
 - **`copy`**: Si el archivo ya existe, lo renombra agregando un número al final (ej: `imagen_1.jpg`)

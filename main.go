@@ -15,6 +15,7 @@ import (
 var workers = flag.Int("w", 8, "Number of concurrent workers")
 var noScreenshots = flag.Bool("n", false, "Skip screenshot images")
 var ignoreExts = flag.String("i", "", "Comma-separated list of extensions to ignore (e.g. webp,jpg)")
+var addExts = flag.String("a", "", "Comma-separated list of additional extensions to include (e.g. mp4,pdf)")
 
 func main() {
 	flag.Parse()
@@ -31,9 +32,17 @@ func main() {
 		utils.IgnoreExtensions = exts
 	}
 
+	if *addExts != "" {
+		exts := strings.Split(*addExts, ",")
+		for i := range exts {
+			exts[i] = strings.TrimPrefix(exts[i], ".")
+		}
+		utils.AdditionalExtensions = exts
+	}
+
 	args := flag.Args()
 	if len(args) < 3 {
-		fmt.Fprintf(os.Stderr, "Usage: %s [-w N] [-n] [-i ext1,ext2] <destino> <modo> <carpeta1> [carpeta2] ...\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "Usage: %s [-w N] [-n] [-i ext1,ext2] [-a ext1,ext2] <destino> <modo> <carpeta1> [carpeta2] ...\n", os.Args[0])
 		fmt.Fprintf(os.Stderr, "Modo: copy | skip\n")
 		os.Exit(1)
 	}

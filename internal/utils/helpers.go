@@ -27,6 +27,7 @@ var screenshotPatterns = []string{
 
 var NoScreenshots bool
 var IgnoreExtensions []string
+var AdditionalExtensions []string
 
 func IsScreenshot(filename string) bool {
 	lower := strings.ToLower(filename)
@@ -41,14 +42,25 @@ func IsScreenshot(filename string) bool {
 func IsValidImage(path string) bool {
 	filename := GetFilename(path)
 	ext := strings.ToLower(getExt(filename))
-	if !validExtensions[ext] {
+
+	isValid := validExtensions[ext]
+	for _, extra := range AdditionalExtensions {
+		if ext == "."+extra || ext == extra {
+			isValid = true
+			break
+		}
+	}
+
+	if !isValid {
 		return false
 	}
+
 	for _, ignored := range IgnoreExtensions {
 		if ext == "."+ignored || ext == ignored {
 			return false
 		}
 	}
+
 	if NoScreenshots && IsScreenshot(filename) {
 		return false
 	}
